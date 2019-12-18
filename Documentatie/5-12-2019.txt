@@ -1,0 +1,29 @@
+Platformio testproject aangemaakt. Voor het connecten met infura wordt er gebruik gemaakt van web3E library. Hier zaten meerdere problemen in die opgelost zijn.
+
+o.a. deed hij het niet goed door het gebruik van een ESP32 library op de ESP8266. Deze wifi library wordt gebruikt om een connectie te kunnen maken met het internet. Ook zit hier verschillende classes onder waaronder BearSSL.
+Het eerste probleem ging om de WiFi.h library. De ESP8266 versie hiervan is ESP8266WiFi.h
+Na de ingebruikneming van de ESP8266WiFi.h library waren er meerdere errors.
+
+Exeptions konden niet worden gehandeld. FIXED
+Dit is verholpen door build_unflags = -fno-exceptions toe te voegen aan de Platformio.ini file en build_unflags = -fno-exceptions. Sommige flags worden standaard gezet op basis van de package van de MCU.
+
+
+in de constructor van de web3E class wordt een SSL certificaat meegegeven. Echter was de functie die hiervoor werd gebruikt verouderd en kon niet op dezelfde manier worden aangesproken worden als de ESP32WiFi variant. FIXED
+
+Na lang zoeken door de library is de BearSSL library tegengekomen. https://arduino-esp8266.readthedocs.io/en/latest/esp8266wifi/bearssl-client-secure-class.html
+https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/src/WiFiClientSecureBearSSL.cpp
+Het inladen van het certificaat doen we nu met de volgende regel X509List cert(infura_ca_cert);
+Deze regel is tegengekomen in een voorbeeld en zorgt voor het gewenste resultaat. https://github.com/esp8266/Arduino/blob/master/libraries/ESP8266WiFi/examples/BearSSL_Sessions/BearSSL_Sessions.ino
+
+
+Verder waren er nog error in 2 functies die gebruik maakten van gcvt. Dit is een ((low-level)c) operatie van stdlib.h om doubles te vertalen naar string type. In beide functies was het uiteindelijke resultaat om een ETH conversie te doen en deze te returnen. De gcvt operatie is vervangen door een arduino string type te gebruiken. Deze constructor kan doubles ontvangen en vertalen naar string. Hieronder de code:
+
+    //char buffer[36]; //allow extra 4 chars for gcvt
+    if (eth < 0) eth = 0;
+    //gcvt(eth * pow(10.0, 18), 32, buffer);
+    String tempString(eth * pow(10.0, 18), 32);
+    std::string weiStr = std::string(tempString.c_str());
+
+de gecommente code is oud. String tempString(eth * pow(10.0, 18), 32); is nieuw. Uiteindelijk wordt een c_str teruggegeven aan de std::string. eventueel kan dit nog efficienter worden gemaakt. Dit moet er dan uitzien als double --> std::string ipv double --> arduino String --> std::string.
+
+De gebruikte c++ versie in vscode is ingesteld op c++11 omdat de oudere versie een aantal functionaliteiten niet ondersteunde.
