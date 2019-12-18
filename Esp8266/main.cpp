@@ -42,7 +42,7 @@ uint32 msgcount = 0;
 
 using namespace websockets;
 
-void verifyMsgOnCreatedLog(string msg)
+void verifyMsgOnCreatedLog(String msg)
 {
     StaticJsonDocument<1024>doc;
     deserializeJson(doc, msg);
