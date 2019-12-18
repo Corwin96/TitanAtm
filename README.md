@@ -13,4 +13,10 @@ This github page is for the ethereum arcade machine.
   <li>ArduinoJson by Benoit Blanchon</i>
 </ul>
 
+
+<h2>Git guide</h2>
+https://rogerdudler.github.io/git-guide/index.nl.html
+<br>
+<br>
+
 <h2>Installation</h2>
