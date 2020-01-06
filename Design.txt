@@ -8,12 +8,12 @@ Day 11: multisig, Access Control, Security test/audit
 
 
 
-arcade <- esp32 <- recipient_contract	<- ERC777 
-												  ^
+arcade <- esp32 <- recipient_contract	<- ERC777
+			  ^
                           |
                     Upgrade_contract/proxy
-                   					   	^
-                      					|
-                        multisig (contract) verification for upgradabilit
+                   		^
+               			|
+                        multisig (contract) verification for upgradability
                         
 
