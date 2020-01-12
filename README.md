@@ -21,5 +21,6 @@ https://rogerdudler.github.io/git-guide/index.nl.html
 
 <h2>Design</h2>
 ![Design img](Design.png)
+<img src="Design.png">
 
 <h2>Installation</h2>
