@@ -41,7 +41,7 @@ contract Ownable {
   * @return true if `msg.sender` is the owner of the contract.
   */
   function isOwner() public view returns(bool) {
-    return msg.sender;
+    return msg.sender == _owner;
   }
 
   /**
