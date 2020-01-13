@@ -39,13 +39,6 @@ contract Simple777Recipient is IERC777Recipient, ERC777 {
     }
 
     /*
-     * Function to check amount of tokens in the contract
-     */
-    function tokensOwned() internal onlyOwner returns(uint256) {
-        return balanceOf(address(this));
-    }
-
-    /*
      * Function to withdraw tokens from the contract to owner account
      * @returns true when succesful
      */
