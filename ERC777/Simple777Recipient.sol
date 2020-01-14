@@ -3,13 +3,14 @@ pragma solidity ^0.5.0;
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC777/IERC777.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/introspection/IERC1820Registry.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC777/IERC777Recipient.sol";
-import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC777/ERC777.sol";
+import { ERC777 } from "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC777/ERC777.sol";
+import "https://github.com/Corwin96/TitanAtm/blob/develop/ERC777/Ownable.sol";
 
 /**
  * @title Simple777Recipient
  * @dev Very simple ERC777 Recipient
  */
-contract Simple777Recipient is IERC777Recipient, ERC777 {
+contract Simple777Recipient is IERC777Recipient, Ownable {
 
     IERC1820Registry private _erc1820 = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
     bytes32 constant private TOKENS_RECIPIENT_INTERFACE_HASH = keccak256("ERC777TokensRecipient");
@@ -39,12 +40,19 @@ contract Simple777Recipient is IERC777Recipient, ERC777 {
     }
 
     /*
+     * Function to check amount of tokens in the contract
+     */
+    function tokensOwned() internal view onlyOwner returns(uint256) {
+        return ERC777(msg.sender).balanceOf(address(this));
+    }
+
+    /*
      * Function to withdraw tokens from the contract to owner account
      * @returns true when succesful
      */
-    function withdraw(uint amount) internal onlyOwner returns(bool){
+    function withdraw(uint amount) public onlyOwner returns(bool){
         require(amount < tokensOwned());
-        transfer(msg.sender, amount);
+        ERC777(msg.sender).transfer(msg.sender, amount);
         return true;
     }
 }
