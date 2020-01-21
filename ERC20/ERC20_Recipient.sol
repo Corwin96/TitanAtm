@@ -3,22 +3,6 @@ pragma solidity ^0.5.12;
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Detailed.sol";
 
-
-contract Owner {
-   address public owner;
-   
-   constructor() public {
-      owner = msg.sender;
-   }
-   
-   modifier onlyOwner {
-      require(msg.sender == owner);
-      _;
-   }
-   
-}
-
-
 contract Recipient is Owner {
     
     ERC20 token = ERC20(0x883B6d3E97063858e72b82d030F7eA3B7556cb5A); //FILL IN WITH ERC20 ADDRESS
