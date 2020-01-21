@@ -8,14 +8,16 @@ contract Recipient is Owner {
     
     ERC20 private _token;
     
+    event addresChanged(address _newAddress);
+    
     constructor (address token) public { 
         _token = ERC20(token); 
     }
     
-//    function setContractAddr(address addr) public onlyOwner {
-//        ERC20 = addr;
-        //ERC20 contract changed
-//    }
+    function setContractAddr(address _newTokenAddress) public onlyOwner {
+        _token =ERC20(_newTokenAddress);
+        emit addresChanged(_newTokenAddress);
+    }
     
     function getContractTokenBalance() public view returns(uint256) {
         return _token.balanceOf(address(this));
