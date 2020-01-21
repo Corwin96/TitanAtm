@@ -6,8 +6,10 @@ import "https://github.com/Corwin96/TitanAtm/blob/develop/ERC20/Owner.sol";
 
 contract Recipient is Owner {
     
+    ERC20 private _token;
+    
     constructor (address token) public { 
-        ERC20 token = ERC20(address); 
+        _token = ERC20(token); 
     }
     
 //    function setContractAddr(address addr) public onlyOwner {
@@ -16,18 +18,16 @@ contract Recipient is Owner {
 //    }
     
     function getContractTokenBalance() public view returns(uint256) {
-        return token.balanceOf(address(this));
+        return _token.balanceOf(address(this));
     }
     
     function transferToOwner() public onlyOwner {
-        token.transfer(owner, getContractTokenBalance());
+        _token.transfer(owner, getContractTokenBalance());
         //Transfers all tokens to the owner of the contract
     }
     
     function addGameCoin() public {
        // token.approve(address(this), 0); THIS IS NEEDED BUT SHOULD BE IMPLEMENTED IN THE JAVASCRIPT. ALLOW THE CONTRACT TO USE YOUR TOKENS.
-        token.transferFrom(msg.sender, address(this), 1);
+        _token.transferFrom(msg.sender, address(this), 1);
     }
 }
-
-
