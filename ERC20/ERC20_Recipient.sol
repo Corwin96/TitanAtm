@@ -2,23 +2,34 @@
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Detailed.sol";
-import "https://github.com/Corwin96/TitanAtm/blob/develop/ERC20/Owner.sol";
+
+
+contract Owner {
+   address public owner;
+   
+   constructor() public {
+      owner = msg.sender;
+   }
+   
+   modifier onlyOwner {
+      require(msg.sender == owner);
+      _;
+   }
+   
+}
 
 contract Recipient is Owner {
     
     ERC20 private _token;
     
-    address private _owner;
-    
     uint32 public transactionCounter;
     
     event addresChanged(address _newAddress);
-    event coinAdded(address _sender);
+    event coinAdded(address _sender, uint32 counter);
     
     constructor (address token) public { 
         _token = ERC20(token); 
         transactionCounter = 0;
-        _owner = msg.sender;
     }
     
     function setContractAddr(address _newTokenAddress) public onlyOwner {
@@ -31,14 +42,13 @@ contract Recipient is Owner {
     }
     
     function transferToOwner() public onlyOwner {
-        _token.transfer(_owner, getContractTokenBalance());
+        _token.transfer(owner, getContractTokenBalance());
         //Transfers all tokens to the owner of the contract
     }
     
     function addGameCoin() public {
-       // token.approve(address(this), 0); THIS IS NEEDED BUT SHOULD BE IMPLEMENTED IN THE JAVASCRIPT. ALLOW THE CONTRACT TO USE YOUR TOKENS.
         _token.transferFrom(msg.sender, address(this), 1);
         transactionCounter++;
-        emit coinAdded(msg.sender);
+        emit coinAdded(msg.sender, transactionCounter);
     }
 }
