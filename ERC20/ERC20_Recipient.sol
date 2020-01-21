@@ -1,4 +1,4 @@
-pragma solidity ^0.5.12;
+ pragma solidity ^0.5.12;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Detailed.sol";
@@ -8,6 +8,8 @@ contract Recipient is Owner {
     
     ERC20 private _token;
     
+    address private _owner;
+    
     uint32 public transactionCounter;
     
     event addresChanged(address _newAddress);
@@ -16,6 +18,7 @@ contract Recipient is Owner {
     constructor (address token) public { 
         _token = ERC20(token); 
         transactionCounter = 0;
+        _owner = msg.sender;
     }
     
     function setContractAddr(address _newTokenAddress) public onlyOwner {
@@ -28,7 +31,7 @@ contract Recipient is Owner {
     }
     
     function transferToOwner() public onlyOwner {
-        _token.transfer(owner, getContractTokenBalance());
+        _token.transfer(_owner, getContractTokenBalance());
         //Transfers all tokens to the owner of the contract
     }
     
