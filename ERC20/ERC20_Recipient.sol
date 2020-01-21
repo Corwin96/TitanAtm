@@ -2,6 +2,7 @@ pragma solidity ^0.5.12;
 
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol";
 import "https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20Detailed.sol";
+import "https://github.com/Corwin96/TitanAtm/blob/develop/ERC20/Owner.sol";
 
 contract Recipient is Owner {
     
