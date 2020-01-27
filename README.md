@@ -23,3 +23,4 @@ https://rogerdudler.github.io/git-guide/index.nl.html
 <img src="Design.png">
 
 <h2>Installation</h2>
+<img src="ESP32/ESP32-Pinout.png">
