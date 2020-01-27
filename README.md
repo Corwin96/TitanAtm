@@ -11,9 +11,8 @@ This github page is for the ethereum arcade machine.
 <ul>
   <li>ArduinoWebsockets by Gil Maimon</li>
   <li>ArduinoJson by Benoit Blanchon</li>
-  <li> </li>
 </ul>
-<p> a external library is used for the liquid crystal. <a href="https://bitbucket.org/fmalpartida/new-liquidcrystal/downloads/">Liquid Crystal Library</a></p>
+<p> A external library is used for the liquid crystal. <a href="https://bitbucket.org/fmalpartida/new-liquidcrystal/downloads/">Liquid Crystal Library</a></p>
 
 <h2>Git guide</h2>
 https://rogerdudler.github.io/git-guide/index.nl.html
