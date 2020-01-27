@@ -10,7 +10,8 @@ This github page is for the ethereum arcade machine.
 
 <ul>
 <li>ArduinoWebsockets by Gil Maimon</li>
-  <li>ArduinoJson by Benoit Blanchon</i>
+  <li>ArduinoJson by Benoit Blanchon</li>
+  <li> <a href="https://bitbucket.org/fmalpartida/new-liquidcrystal/downloads/">Liquid Crystal Library</a> <li>
 </ul>
 
 
