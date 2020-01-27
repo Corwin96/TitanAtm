@@ -24,3 +24,6 @@ https://rogerdudler.github.io/git-guide/index.nl.html
 
 <h2>Installation</h2>
 <img src="ESP32/ESP32-Pinout.png">
+
+<h2>Sources</h2>
+<a href="https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md">ERC20</a></p>
