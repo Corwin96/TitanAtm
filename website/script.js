@@ -10,7 +10,10 @@ async function getContractAddress(_name) {                           //Function 
     return address;
 }
 
-
+/**
+ * This function is used to give approval that a token may be transfered from your wallet to the chosen contract address.
+ * The Contract information variables are found in contract-info.js, change these according to your own contract.
+ */
 async function callApprove() {
     web3 = new Web3(Web3.givenProvider);
     web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
@@ -21,7 +24,7 @@ async function callApprove() {
         }]
     });
     var clientAddress = await web3.eth_requestAccounts().catch(x=>log(x.message));
-
+    
     const tokenContract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
     tokenContract.methods.approve(ARCADE_CONTRACT_ADDRESS, APPROVE_VALUE).send({from: `${clientAddress}`})
     .then(function(receipt){
@@ -30,23 +33,24 @@ async function callApprove() {
     });
 }
 
+/**
+ * This function transfers the token from the owner to the contract, within the contract, the transaction will be confirmed with an emit.
+ * The Contract information variables are found in contract-info.js, change these according to your own contract.
+ */
 async function callAddGameCoin(){
-  web3 = new Web3(Web3.givenProvider);
-  web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
-      methods: [{
-          name: 'eth_requestAccounts',
-          call: 'eth_requestAccounts',
-          params: 0
-      }]
-  });
-  var clientAddress = await web3.eth_requestAccounts().catch(x=>log(x.message));
+    web3 = new Web3(Web3.givenProvider);
+    web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
+        methods: [{
+            name: 'eth_requestAccounts',
+            call: 'eth_requestAccounts',
+            params: 0
+        }]
+    });
+    var clientAddress = await web3.eth_requestAccounts().catch(x=>log(x.message));
 
-  const arcadeContract = new web3.eth.Contract(ARCADE_CONTRACT_ABI, ARCADE_CONTRACT_ADDRESS);
-  arcadeContract.methods.addGameCoin().send({from: `${clientAddress}`});
+    const arcadeContract = new web3.eth.Contract(ARCADE_CONTRACT_ABI, ARCADE_CONTRACT_ADDRESS);
+    arcadeContract.methods.addGameCoin().send({from: `${clientAddress}`});
 }
-
-
-
 
 async function versionAndBlock() {
     web3 = new Web3(Web3.givenProvider);
@@ -56,24 +60,23 @@ async function versionAndBlock() {
 }
 
 async function balanceOfContract() {
-  web3 = new Web3(Web3.givenProvider);
-  const contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-  //Read only so we can use the .call method.
-  var balance = await contract.methods.contractBalance().call();
-  log('balance = ' + balance);
-
-  log(`ContractBalance shows ${Web3.utils.fromWei(balance)} ether`);
+    web3 = new Web3(Web3.givenProvider);
+    const contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
+    //Read only so we can use the .call method.
+    var balance = await contract.methods.contractBalance().call();
+    log('balance = ' + balance);
+    log(`ContractBalance shows ${Web3.utils.fromWei(balance)} ether`);
 }
 
 async function listPastEvents() {           //This function logs all events to the console.
-  web3 = new Web3(Web3.givenProvider);
-  const contract = new web3.eth.Contract(contractABI, await getContractAddress(ensName));
-  contract.getPastEvents("allEvents", {
-      fromBlock: 0,
-      toBlock: 'latest'
+    web3 = new Web3(Web3.givenProvider);
+    const contract = new web3.eth.Contract(contractABI, await getContractAddress(ensName));
+    contract.getPastEvents("allEvents", {
+        fromBlock: 0,
+        toBlock: 'latest'
     }) //, function(error, events){console.log(events);}) //Callback is optional.
     .then(function(events) {
-      log('These are all smart contract events \n' + JSON.stringify(events));
+        log('These are all smart contract events \n' + JSON.stringify(events));
     });
 }
 

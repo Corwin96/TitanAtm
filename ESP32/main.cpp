@@ -48,7 +48,6 @@ int period = 4000;
 unsigned long lastTime;
 bool tokenNotify = 1;       //to set up in the loop
 
-
 const char* ssid = "NoWiresAttached"; //Enter SSID
 const char* password = "D1ck&m4T_W*6"; //Enter Password
 
@@ -74,9 +73,7 @@ void verifyMsgOnSubscribtionLog(String msg)
     if(subscribtionLog == doc["params"]["subscription"].as<String>())
     {
         tokenReceived();
-    }
-    
-    
+    }   
 }
 
 void onFirstMessage(String msg)   //First message is used for verification of subscription
@@ -151,9 +148,7 @@ void tokenReceived()
     lcd.print("Titan Arcade");
     lcd.setCursor(0, 1);
     lcd.print("Send Titan token");
-
 }
-
 
 WebsocketsClient client;
 IPAddress gateway(192,168,178,1);
@@ -182,7 +177,6 @@ void setup()
     lcd.setCursor( 0, 1 );        // go to the next line
     lcd.print("  Starting   ");
     
-    
     Serial.begin(115200);
 
     WiFi.config(ip, gateway, subnet, dnsip, dns2ip);
@@ -209,6 +203,7 @@ void setup()
     // Connect to server
     client.connect(websockets_connection_string);
 
+    // RPC call to check if a token has been transferred, change the address to the recipient contract address and the topic to the corresponding emit hash
     client.send("{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"eth_subscribe\", \"params\": [\"logs\", {\"address\": \"0x335a1f5634A440Ae4ca59adddd42AcB4E8dDbeF3\", \"topics\": [\"0x324633c1240a599ae948c2245fead42ace06b9f0e120c7d74045f79b248f59f3\"]}]}");
 
     lcd.clear();
@@ -224,8 +219,7 @@ void loop()
 {
     currentTime = millis();
     client.poll();
-
-
+    
     /*
     if(tokenNotify == 1)
     {

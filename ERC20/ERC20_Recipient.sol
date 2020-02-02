@@ -18,8 +18,6 @@ contract Owner {
    }
    
 }
-
-
 contract Recipient is Owner {
     
     ERC20 public token;
@@ -37,8 +35,7 @@ contract Recipient is Owner {
         token = ERC20(_newTokenAddress);
         emit addresChanged(_newTokenAddress);
     }
-    
-    
+        
     function getContractTokenBalance() public view returns(uint256) {
         return token.balanceOf(address(this));
     }
@@ -55,7 +52,6 @@ contract Recipient is Owner {
         emit coinAdded(msg.sender, transactionNum);
     }
 }
-
 
 contract Token_erc20 is ERC20, ERC20Detailed {
 

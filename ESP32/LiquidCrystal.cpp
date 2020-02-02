@@ -9,7 +9,6 @@ LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);
 
 //LiquidCrystal_I2C lcd(0x38, BACKLIGHT_PIN, POSITIVE);  // Set the LCD I2C address
 
-
 // Creat a set of new characters
 const uint8_t charBitmap[][8] = {
    { 0xc, 0x12, 0x12, 0xc, 0, 0, 0, 0 },
