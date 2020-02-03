@@ -130,7 +130,7 @@ async function web3connector() {
 async function OnConnect(provider) {
     const web3 = new Web3(provider); // add provider to web3
     var acts=await web3.eth.getAccounts().catch(log);
-    log(`Here are the accounts: ${JSON.stringify(acts)}`);
+    log(`This is the currently connected account: ${JSON.stringify(acts)}`);
 }
 
 function f() {
