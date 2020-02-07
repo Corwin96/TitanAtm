@@ -3,13 +3,6 @@ function log(logstr) {
   document.getElementById("js-output").innerHTML += logstr + "\n";
 }
 
-const ensName = 'web3testmathieu.eth';
-
-async function getContractAddress(_name) {                           //Function to lookup address with ens name
-    var address = await web3.eth.ens.getAddress(_name);
-    return address;
-}
-
 /**
  * This function is used to give approval that a token may be transfered from your wallet to the chosen contract address.
  * The Contract information variables are found in contract-info.js, change these according to your own contract.
