@@ -1,9 +1,12 @@
 /*jshint esversion: 8 */
 
+//The amount of tokens you want transferred
 const APPROVE_VALUE = 1;
 
+//The address of the ERC20 token contract used
 const TOKEN_CONTRACT_ADDRESS = '0x7E88BcaD9218b082A85c57C6bFDAD89087A0EC87';
 
+//The ABI of the ERC20 token contract
 const TOKEN_CONTRACT_ABI = [
   {
     "constant": false,
@@ -33,8 +36,10 @@ const TOKEN_CONTRACT_ABI = [
   }
 ];
 
+//The address of the recipient contract
 const ARCADE_CONTRACT_ADDRESS = '0x335a1f5634A440Ae4ca59adddd42AcB4E8dDbeF3';
 
+//The ABI of the recipient contract
 const ARCADE_CONTRACT_ABI = [
 	{
 		"inputs": [

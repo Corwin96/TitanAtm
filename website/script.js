@@ -46,24 +46,6 @@ async function callAddGameCoin(){
 }
 
 /**
- * Can be used to check on which chain the site is running.
- */
-async function checkChain() {
-    web3 = new Web3(Web3.givenProvider); // provider from metamask
-    var chainId=await web3.eth.getChainId();
-    log(`We are on chain: ${JSON.stringify(chainId)}`);
-    ethereum.on('chainChanged', newChain);
-    ethereum.on('networkChanged',newChain); // still used in metamask mobile
-//    ethereum.on('chainIdChanged',newChain);      // temp workaround
-    ethereum.autoRefreshOnNetworkChange = false; // temp workaround
-}
-
-function newChain(newchainId) {
-    chainId=newchainId;
-    log(`New chain detected: ${chainId}`);
-}
-
-/**
  * Used for web3connect to choose which wallet to connect to the site.
  */
 async function web3connector() {
@@ -80,12 +62,19 @@ async function web3connector() {
     web3Connect.on("connect", OnConnect);
 }
 
+/**
+ * Triggers when a provider wallet is chosen
+ * @param {any} provider 
+ */
 async function OnConnect(provider) {
     const web3 = new Web3(provider); // add provider to web3
     var acts=await web3.eth.getAccounts().catch(log);
     log(`This is the currently connected account: ${JSON.stringify(acts)}`);
 }
 
+/**
+ * Due to issues with calling an asynchronous function from HTML this is used as a workaround
+ */
 function f() {
     callApprove(); 
 }  
