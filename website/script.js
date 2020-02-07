@@ -52,56 +52,6 @@ async function callAddGameCoin(){
     arcadeContract.methods.addGameCoin().send({from: `${clientAddress}`});
 }
 
-@DEPRECATED
-async function versionAndBlock() {
-    web3 = new Web3(Web3.givenProvider);
-    log(`Version of web3.js: ${web3.version}`);
-    var BlockNumber = await web3.eth.getBlockNumber();
-    log('blocknumber = ' + BlockNumber);
-}
-
-@DEPRECATED
-async function balanceOfContract() {
-    web3 = new Web3(Web3.givenProvider);
-    const contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
-    //Read only so we can use the .call method.
-    var balance = await contract.methods.contractBalance().call();
-    log('balance = ' + balance);
-    log(`ContractBalance shows ${Web3.utils.fromWei(balance)} ether`);
-}
-
-@DEPRECATED
-async function listPastEvents() {           //This function logs all events to the console.
-    web3 = new Web3(Web3.givenProvider);
-    const contract = new web3.eth.Contract(contractABI, await getContractAddress(ensName));
-    contract.getPastEvents("allEvents", {
-        fromBlock: 0,
-        toBlock: 'latest'
-    }) //, function(error, events){console.log(events);}) //Callback is optional.
-    .then(function(events) {
-        log('These are all smart contract events \n' + JSON.stringify(events));
-    });
-}
-
-@DEPRECATED
-async function checkAccount() {
-    web3 = new Web3(Web3.givenProvider); // provider from metamask
-    web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
-        methods: [{
-            name: 'eth_requestAccounts',
-            call: 'eth_requestAccounts',
-            params: 0
-        }]
-    });
-    var result=await web3.eth_requestAccounts().catch(x=>log(x.message));
-    log(`Account address = ${JSON.stringify(result)}`);
-
-    ethereum.on('accountsChanged', newacts => {
-        acts=newacts;
-        log(`Metamask account changed to: ${JSON.stringify(acts)}`);
-    });
-}
-
 /**
  * Can be used to check on which chain the site is running.
  */
@@ -142,5 +92,9 @@ async function OnConnect(provider) {
     var acts=await web3.eth.getAccounts().catch(log);
     log(`This is the currently connected account: ${JSON.stringify(acts)}`);
 }
+
+function f() {
+    callApprove(); 
+}  
 
 web3connector();
