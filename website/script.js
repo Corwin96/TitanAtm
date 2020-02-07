@@ -143,9 +143,4 @@ async function OnConnect(provider) {
     log(`This is the currently connected account: ${JSON.stringify(acts)}`);
 }
 
-//?????????
-function f() {
-    callApprove();
-}
-
 web3connector();
