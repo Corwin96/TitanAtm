@@ -52,6 +52,7 @@ async function callAddGameCoin(){
     arcadeContract.methods.addGameCoin().send({from: `${clientAddress}`});
 }
 
+@DEPRECATED
 async function versionAndBlock() {
     web3 = new Web3(Web3.givenProvider);
     log(`Version of web3.js: ${web3.version}`);
@@ -59,6 +60,7 @@ async function versionAndBlock() {
     log('blocknumber = ' + BlockNumber);
 }
 
+@DEPRECATED
 async function balanceOfContract() {
     web3 = new Web3(Web3.givenProvider);
     const contract = new web3.eth.Contract(TOKEN_CONTRACT_ABI, TOKEN_CONTRACT_ADDRESS);
@@ -68,6 +70,7 @@ async function balanceOfContract() {
     log(`ContractBalance shows ${Web3.utils.fromWei(balance)} ether`);
 }
 
+@DEPRECATED
 async function listPastEvents() {           //This function logs all events to the console.
     web3 = new Web3(Web3.givenProvider);
     const contract = new web3.eth.Contract(contractABI, await getContractAddress(ensName));
@@ -80,6 +83,7 @@ async function listPastEvents() {           //This function logs all events to t
     });
 }
 
+@DEPRECATED
 async function checkAccount() {
     web3 = new Web3(Web3.givenProvider); // provider from metamask
     web3.extend({ // web3.eth.requestAccounts() isn't available (yet)
@@ -98,6 +102,9 @@ async function checkAccount() {
     });
 }
 
+/**
+ * Can be used to check on which chain the site is running.
+ */
 async function checkChain() {
     web3 = new Web3(Web3.givenProvider); // provider from metamask
     var chainId=await web3.eth.getChainId();
@@ -113,6 +120,9 @@ function newChain(newchainId) {
     log(`New chain detected: ${chainId}`);
 }
 
+/**
+ * Used for web3connect to choose which wallet to connect to the site.
+ */
 async function web3connector() {
     const web3Connect = new Web3Connect.Core({
         network: "mainnet", // optional
@@ -133,6 +143,7 @@ async function OnConnect(provider) {
     log(`Here are the accounts: ${JSON.stringify(acts)}`);
 }
 
+//?????????
 function f() {
     callApprove();
 }
