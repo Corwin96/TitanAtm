@@ -12,12 +12,9 @@ contract Recipient is Ownable {
     
     ERC20 public token;
     uint256 public transactionNum;
-    
-    mapping (address => bool) public tokenreceivers; //this mapping is only used for the demo to make sure an address can only withdraw once
         
     event addressChanged(address _newAddress);
     event coinAdded(address sender, uint256 transactionNum);
-    event tokenSent(address receiver); //only used for the demo
     
     ///@dev constructor takes the token contract address as an argument
     constructor (address _token) public { 
@@ -48,15 +45,5 @@ contract Recipient is Ownable {
         token.transferFrom(msg.sender, address(this), 1);
         transactionNum++;
         emit coinAdded(msg.sender, transactionNum);
-    }
-    
-    ///@notice withdraw a token to the senders address, every address can only use this once
-    ///@dev this is purely for demo purposes where visitors don't own any tokens
-    function getToken() public {
-        require(getContractTokenBalance() > 1);
-        require(!(tokenreceivers[msg.sender]));
-        token.transfer(msg.sender, 1);
-        tokenreceivers[msg.sender] = true;
-        emit tokenSent(msg.sender);
     }
 }
